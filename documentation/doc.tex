@@ -1,0 +1,193 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[lmargin=2cm,rmargin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\title{System wspomagający pracę ratowników górskich Babiej Góry}
+\author{Arkadiusz Błasiak, Szymon Nowak}
+\date{}
+\begin{document}
+\maketitle
+\newpage
+\section{Cel}
+System ma na celu wspomagać pracę ratowników górskich Babiej Góry. Dokładne informacje o warunkach pogodowych i lokalizacje pobierane z BTS’ów, pomogą ratownikom monitorować szlaki z większą dokładnością, przyspieszyć czas reakcji oraz podjąć decyzję o rozpoczęciu akcji ratunkowej.
+\section{Podstawowe założenia}
+\begin{enumerate}
+\item Babia Góra podzielona jest na 11 szlaków o różnej długości i różnym poziomie trudności (żółty, zielony, niebieski, czarny, czerwony). Dla każdego szlaku obliczana będzie skala zagrożenia
+\item Na skalę zagrożenia każdego szlaku wpływają:
+\begin{itemize}
+\item warunki atmosferyczne
+\begin{itemize}
+\item wiatr
+\item deszcz
+\item mgła
+\item temperatura
+\end{itemize}
+\item zagrożenie lawinowe
+\item poziom trudności szlaku
+\end{itemize}
+\item Informacje o warunkach atmosferycznych pobierane są z czujników rozmieszczonych w różnych miejscach na szlakach Babiej Góry. Informacje o lokalizacji komórek turystów pobierane są BTS’ów
+\item Każdy z powyższych czynników posiada osobną skalę. Końcowy poziom stanu alarmowego dla każdego szlaku oblicza się ze wzoru: (suma skal dla warunków atmosferycznych + zagrożenie lawinowe + poziom trudności szlaku)/4.
+\item W zależności od uzyskanego wyniku system sugeruje określone akcje ratowników
+\end{enumerate}
+\newpage
+\section{Szlaki babiej góry}
+\begin{center}
+    \begin{longtable}{ | l | l | p{5cm} | l | l | p{2cm} |}
+    \hline
+    \textbf{Lp} & \textbf{Kolor} & \textbf{Trasa} & \textbf{Czas przejścia} & \textbf{Długość trasy} & \textbf{Poziom trudności}\\ \hline
+    1 & żółty & Markowe Szczawiny -- Sucha Kotlinka -- Diablak & 1h 30min & 3km & 1\\\hline
+    2 & żółty & Zawoja Czatoża -- Fickowe Rozstaje -- Górny Płaj -- Markowe
+Szczawiny & 3h 20min & 5km & 1\\\hline
+	3 & niebieski & Zawoja Czatoża -- Markowe Rówienki -- Zawoja Markowa --Ryzowana -- Zawoja Policzne & 3h 30min & 7,50km & 2\\\hline
+	4 & niebieski & Zawoja Policzne -- Polana rowiarki -- Markowe Szczawiny & 3h & 11km & 2\\\hline
+	5 & zielony & Zawoja Markowa -- Pośredni Bór -- Markowe Szczawiny & 1h 20min &  & 3\\\hline
+	6 & zielony & Górny Płaj -- Sokolica & 45min & 1,5km & 3\\\hline
+	7 & zielony & Przełęcz Jałowiecka -- Mała Babia Góra -- Przełęcz Brona & 2h & 4km & 3\\\hline
+	8 & zielony & Przywarówka -- Głodna Woda -- Diablak & 2h 30min & 2,3km & 3\\\hline
+	9 & zielony & Polana Krowiarki -- Hala Śmietanowa -- Zubrzyca Górna & 2h & 3km & 3\\\hline
+	10 & czerwony & Polana Krowiarki -- Sokolica -- Kępa -- Gówniak -- Diablak -- Przełęcz Brona -- Markowe Szczawiny -- Fickowe Rozstaje -- Przełęcz Jałowiecka & 6h & 14,5km & 4\\\hline
+	11 & czarny & Podryzowana -- Ryzowana -- Markowe Szczawiny & 2h 30min & 3,5km & 4\\\hline
+    \end{longtable}
+\end{center}
+\newpage
+\section{Czynniki atmosferyczne}
+\begin{center}
+    \begin{longtable}{ | l | p{5cm} | l | l |}
+    \hline
+    \textbf{Czynnik} & \textbf{Opis} & \textbf{Skala} & \textbf{Wytyczne} \\ \hline
+    wiatr & Przy wietrze o prędkości 80–100
+km/godz trudno utrzymać się na nogach
+pokonywanie wysokogórskich szlaków
+jest często niemożliwe, grozi
+przewróceniem lub wręcz
+zdmuchnięciem w przepaść. Poruszając
+się w terenach leśnych, narażamy się na
+przygniecenie przez łamane wiatrem i
+wywracające się drzewa lub uderzenie
+spadającymi gałęziami. &
+1--3 & \parbox[t]{5cm}{1: do 30km/h\\
+2: 30-80km/h\\
+3: powyżej 80km/h} \\ \hline
+	mgła&Jej obecność może nie tylko
+uniemożliwić oglądanie widoków, ale przede wszystkim znacznie utrudnić
+orientację w terenie. Szczególnie
+niebezpieczna jest mgła w warunkach
+zimowych, gdy biel śniegu całkowicie
+zlewa się z bielą mgły. Nie widząc
+punktów odniesienia, nie będziemy w
+stanie określić położenia w terenie,
+kierunku marszu, a nawet ocenić
+stromizny stoku, na którym się
+znajdujemy.& 1--3 & \parbox[t]{5cm}{1: zauważalna
+mgła, która nie wpływa jednak na
+poruszanie się po
+szlaku\\
+2: słaba widoczność\\
+3: znikoma
+widoczność,
+znaczące
+utrudnienia w
+orientacji
+terenowej} \\ \hline
+ 	temperatura & Na szczytach temperatura z reguły jest
+niższa niż u stóp gór. Każde 100 metrów
+wyżej, to około 1 st. C mniej. Uczucie
+zimna jest dodatkowo potęgowane przez
+wiatr. Słaby wiaterek przy termometrze
+wskazującym zero stopni spowoduje
+odczuwanie zimna równe około 3 st. 
+C,
+podmuch (5 m/s) – prawie 9 st. 
+C, wiatr 15
+m/s aż 18 st.
+C. Ten sam wiatr przy
+umiarkowanym mrozie 10 st.
+C da
+odczucie poniżej 33 st.
+C. & 1--3 & \parbox[t]{5cm}{1: powyżej 15 lub
+poniżej 5\\
+2: powyżej 24 lub
+poniżej -3\\
+3: powyżej 30 lub
+poniżej -15}\\ \hline
+	deszcz, burza & W górach jest niebezpieczne podczas
+burzy ze względu na ilość dni burzowych
+w ciągu roku, wysokość brak
+możliwości schronienia się. Dodatkowym
+zagrożeniem są barierki, łańcuchy,
+drabiny, brak dobrze przewodzacych
+warstw. Burza jest niebezpieczna, jeżeli
+pomiędzy błyskiem a grzmotem jest
+mniej niz 515
+sekund. Znaczy to, że
+piorun uderzył bliżej niż 25
+km od nas.
+Dodatkowo opady deszczu podwyższają
+trudności tras związane z poruszaniem
+sie po nich. & 1--3 & \parbox[t]{5cm}{1:
+deszcz - od 15 do
+40mm
+wiatr - od 0 do
+30km/h\\
+2:
+deszcz - od 41 do
+70mm
+wiatr - od 31 do
+80kmh\\
+3:
+deszcz - powyżej
+70mm
+wiatr - powyżej
+80kmh}\\ \hline
+    \end{longtable}
+\end{center}
+\newpage
+\section{Zagrożenie lawinowe}
+\begin{center}
+    \begin{longtable}{ | l | p{10cm} |}
+    \hline
+    \textbf{Stopień zagrożenia} & \textbf{Prawdopodobieństwo zejścia lawiny}\\ \hline
+    5 & Istnieje prawdopodobieństwo samoczynnego schodzenia wielu dużych, niejednokrotnie
+również bardzo dużych lawin, także w terenie
+umiarkowanie stromym. \\\hline
+	4 & Wyzwolenie lawiny jest prawdopodobne na
+licznych stromych stokach już przy małym
+obciążeniu dodatkowym. W niektórych
+przypadkach możliwe jest samorzutne
+schodzenie licznych średnich, a często
+również dużych lawin.\\\hline
+	3 & Wyzwolenie lawiny jest możliwe już przy
+małym obciążeniu dodatkowym wszystkim na
+wskazanych stromych stokach. W niektórych
+przypadkach możliwe jest samorzutne
+schodzenie średnich, a sporadycznie także
+dużych lawin.\\\hline
+	2 & Wyzwolenie lawiny jest możliwe zwłaszcza
+przy dużym obciążeniu dodatkowym przede
+wszystkim na wskazanych stromych stokach.
+Nie należy spodziewać się samorzutnego
+schodzenia dużych lawin.\\\hline
+	1 & Wyzwolenie lawiny na ogół jest możliwe tylko
+przy dużym obciążeniu dodatkowym w
+nielicznych miejscach w terenie ekstremalnie
+stromym. Możliwe jest samorzutne schodzenie
+lawin głównie w postaci zsuwów i małych
+lawin. \\\hline
+    \end{longtable}
+\end{center}
+\newpage
+\section{Sytuacje alarmowe -- turyści}
+\begin{center}
+\begin{longtable}{ | p{15cm} | }
+	\textbf{Sytuacja alarmowa}\\\hline
+	Turysta przebywa w jednym miejscu przez
+dłuższy czas. Możliwe zasłabnięcie, stracenie
+przytomności.\\\hline
+\end{longtable}
+\end{center}
+\newpage
+\section{Stany alarmowe dla szlaków}
+\end{document}

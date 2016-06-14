@@ -1,0 +1,76 @@
+var RoutesTable = React.createClass({
+    getInitialState: function () {
+        return {data: []};
+    },
+    componentDidMount: function () {
+        this.loadRoutesFromServer();
+        setInterval(this.loadRoutesFromServer, this.props.pollInterval);
+    },
+    loadRoutesFromServer: function () {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+    render: function () {
+        var routeRows = this.state.data.map(function (route) {
+            return (
+                <RouteRow key={route.key} nazwa={route.nazwa} poziom={route.poziom} kolor={route.kolor} dzialanie={route.dzialanie}/>
+            );
+        });
+        return (
+            <div className="routesTable">
+                <h3>Stan szlaków</h3>
+                <table className="table table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th>Nazwa szlaku</th>
+                        <th>Stan alarmowy</th>
+                        <th>Kolor</th>
+                        <th>Sugerowane działanie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {routeRows}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+});
+
+var RouteRow = React.createClass({
+    render: function () {
+        if (this.props.poziom > 2) {
+            return (
+                <tr className="danger">
+                    <td>{this.props.nazwa }</td>
+                    <td>{this.props.poziom }</td>
+                    <td>{this.props.kolor }</td>
+                    <td>{this.props.dzialanie }</td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr>
+                    <td>{this.props.nazwa }</td>
+                    <td>{this.props.poziom }</td>
+                    <td>{this.props.kolor }</td>
+                    <td>{this.props.dzialanie }</td>
+                </tr>
+            );
+        }
+    }
+});
+
+ReactDOM.render(
+    <RoutesTable url="/api/get_routes_info/" pollInterval={3000}/>,
+    document.getElementById('szlaki')
+);

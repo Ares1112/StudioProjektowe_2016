@@ -1,0 +1,180 @@
+{% load staticfiles %}
+<style type="text/css">
+    .navbar-inverse {
+        background-color: #006FAF
+    }
+
+    .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+        background-color: #45250E
+    }
+
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        background-color: #45250E
+    }
+
+    .dropdown-menu {
+        background-color: #FFFFFF
+    }
+
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background-color: #006FAF
+    }
+
+    .navbar-inverse {
+        background-image: none;
+    }
+
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background-image: none;
+    }
+
+    .navbar-inverse {
+        border-color: #FFDC73
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: #FFD71F
+    }
+
+    .navbar-inverse .navbar-brand:hover {
+        color: #FFFFFF
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #FFD71F
+    }
+
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+        color: #FFFFFF
+    }
+
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #FFFFFF
+    }
+
+    .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+        color: #FFFFFF
+    }
+
+    .dropdown-menu > li > a {
+        color: #333333
+    }
+
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        color: #FFFFFF
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a .caret {
+        border-top-color: #FFD71F
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
+        border-top-color: #FFFFFF
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a .caret {
+        border-bottom-color: #FFD71F
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
+        border-bottom-color: #FFFFFF
+    }
+
+    .navbar-brand {
+        height: 150px;
+    }
+
+    .nav > li > a {
+        padding-top: 65px;
+        padding-bottom: 65px;
+    }
+
+    .navbar-toggle {
+        padding: 10px;
+        margin: 25px 15px 25px 0;
+    }
+
+    .triangle-down {
+        position: fixed;
+        margin-top: 150px;
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-top: 30px solid #006FAF;
+    }
+
+    .triangle-down p {
+        text-align: center;
+        color: white;
+        margin-top: -33px;
+        margin-left: -9px;
+        transition: color .2s;
+    }
+
+    .triangle-down p:hover {
+        color: rgba(0, 0, 0, 0.4);
+    }
+</style>
+
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav " role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://disputebills.com"><img
+                    src="{% static 'topr-logo.png' %}"
+                    alt="TOPR"
+                    style="zoom: 40%;">
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'home_view' %}">Monitoruj szlaki <span class="glyphicon glyphicon-road"></span></a>
+                </li>
+                <li>
+                    <a href="#">Turyści na szlakach <span class="glyphicon glyphicon-user"></span></a>
+                </li>
+                <li>
+                    <a href="{% url 'weather_view' %}">Warunki pogodowe <span class="glyphicon glyphicon-cloud"></span></a>
+                </li>
+                <li>
+                    <a href="/admin">Panel administracyjny <span class="glyphicon glyphicon-cog"></span></a>
+                </li>
+            </ul>
+            <div class='triangle-down'>
+                <p>
+                    <span class='glyphicon glyphicon-chevron-down' id='toggle' style="font-size: 20px;"></span>
+                </p>
+            </div>
+        </nav>
+    </div>
+</header>
+<script>
+    $(document).ready(function() {
+        $(".navbar-fixed-top").css("margin-top", "-150px");
+            $("#content").css("margin-top", "0");
+    });
+    $("#toggle").click(function (event) {
+        event.preventDefault();
+        if ($(this).hasClass("isDown")) {
+            $(".navbar-fixed-top").animate({"margin-top": "-150px"}, "fast");
+            $("#content").animate({"margin-top": "0px"}, "fast");
+            $(this).removeClass("isDown");
+            $(this).removeClass("glyphicon-chevron-up");
+            $(this).addClass("glyphicon-chevron-down");
+        } else {
+            $(".navbar-fixed-top").animate({"margin-top": "0px"}, "fast");
+            $("#content").animate({"margin-top": "150px"}, "fast");
+            $(this).addClass("isDown");
+            $(this).removeClass("glyphicon-chevron-down");
+            $(this).addClass("glyphicon-chevron-up");
+        }
+        return false;
+    });
+
+</script>
