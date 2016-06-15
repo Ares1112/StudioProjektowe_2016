@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[lmargin=2cm,rmargin=2cm]{geometry}
 \usepackage{graphicx}
@@ -10,9 +11,12 @@
 \date{}
 \begin{document}
 \maketitle
+\tableofcontents
 \newpage
 \section{Cel}
 System ma na celu wspomagać pracę ratowników górskich Babiej Góry. Dokładne informacje o warunkach pogodowych i lokalizacje pobierane z BTS’ów, pomogą ratownikom monitorować szlaki z większą dokładnością, przyspieszyć czas reakcji oraz podjąć decyzję o rozpoczęciu akcji ratunkowej.
+\section{Narzędzia}
+Do stworzenia aplikacji został wykorzystany framework webowy \textbf{Django} oraz język Python. Przesyłanie komunikatów między nadajnikami a serwerem realizowane jest za pomocą brokera wiadomości \textbf{Apache Kafka}.
 \section{Podstawowe założenia}
 \begin{enumerate}
 \item Babia Góra podzielona jest na 11 szlaków o różnej długości i różnym poziomie trudności (żółty, zielony, niebieski, czarny, czerwony). Dla każdego szlaku obliczana będzie skala zagrożenia
@@ -182,12 +186,83 @@ lawin. \\\hline
 \section{Sytuacje alarmowe -- turyści}
 \begin{center}
 \begin{longtable}{ | p{15cm} | }
+\hline
 	\textbf{Sytuacja alarmowa}\\\hline
 	Turysta przebywa w jednym miejscu przez
-dłuższy czas. Możliwe zasłabnięcie, stracenie
+dłuższy czas. Możliwe zasłabnięcie, utracenie
 przytomności.\\\hline
+	Turysta znajduje się w miejscu zabronionym lub
+zamknietym ze wzgledu na panujace warunki
+atmosferyczne np zagrozenie lawinowe.\\\hline
+	Turysta oddalił się od grupy. Możliwe zgubienie.\\\hline
 \end{longtable}
 \end{center}
 \newpage
 \section{Stany alarmowe dla szlaków}
+\begin{center}
+\begin{longtable}{ | p{4cm} | p{5cm} | p{5cm} | }
+\hline
+	\textbf{Poziomy stanu alarmowego} & \textbf{Zalecenia dla ruchu osób} & \textbf{Zalecane działania ratowników} \\\hline
+	1 -- niski & Na ogół dogodne warunki dla
+wędrówek. & System monitoruje \\\hline
+	2 -- umiarkowany & Częściowo niekorzystne warunki.
+Poruszanie się wymaga
+umiejętności oceny lokalnego
+zagrożenia lawinowego i
+odpowiedniego wyboru trasy
+szczególnie na wszystkich
+stromych stokach, oraz na
+stokach średnio stromych
+szczególnie wskazanych pod
+względem wystawy i wysokości. & Monitorowanie turystów
+na zagrożonych
+obszarach. \\\hline
+ 3 -- znaczny & Warunki w znacznej mierze
+niekorzystne. Poruszanie się
+wymaga bardzo dużego
+doświadczenia. & Wysłanie drona w celu
+lepszego monitorowania
+szlaku. \\\hline
+4 -- wysoki & Warunki zdecydowanie
+niekorzystne. Poruszanie się
+wymaga ekstremalnie dużej
+wprawy i doświadczenia. Zaleca
+się zaniechanie wszelkich wyjść
+w góry. & Wysłanie drona do
+zbadania sytuacji i
+podjęcia decyzji o
+wysłaniu ekipy
+ratowniczej. \\\hline
+5 -- bardzo wysoki & Poruszanie się w terenie jest
+zazwyczaj niemożliwe. Zaleca się
+zaniechanie wszelkich wyjść w
+góry. & Przechwycenie turystów \\\hline
+\end{longtable}
+\end{center}
+\section{Rozmieszczenie BTSów w pobliżu Babiej Góry}
+\includegraphics[scale=0.75]{bts.png}
+\newpage
+\section{Określanie pozycji komórki}
+TA – Czas jaki pokonuje sygnał pomiedzy komorka a stacja BTS , zwykle 0-63\\
+RxL – Siła sygnału, zwykle 0110dBm
+aktualny poziom sygnału odbieranego ze stacji do której jesteśmy zalogowani.
+przyklady: 71\% 103dBm,
+80\% 89dBm\\
+TxPwr – poziom mocy, zwykle 0~19 dBm\\
+A,B - A
+to współczynnik tłumienia sygnału RF,B to współczynnik transmisji tłumienia mocy\\
+RF częstotliwość
+drgań elektromagnetycznych stosowanych w szeroko rozumianej
+radiotechnice. W zakres częstotliwości radiowych wchodzą drgania o zakresie od 3 kHz do
+300 GHz.\\
+\textbf{Distance(L)=TA*500+RxL*A+TxPwr*B} -- odległość komórki od konkretnego
+BTS\\
+potrzebna współrzędnych z gpsu do określenia pozycji stacji bts\\
+po określeniu odległości, nakreślamy okrąg dookoła btsu na którym znajduje się komórka\\
+przy danych z 3 btsow lokalizacja telefonu będzie się znajdować na przecięciu okregów\\
+\begin{center}
+\includegraphics[scale=0.75]{intersection.png}
+\end{center}
+Dokładność takiego namierzania: od 50 do 550 (im więcej BTSów tym dokładniejsza
+pozycja). Dla ułatwienia, w projekcie, nadajnik przesyła dokładne koordynaty GPS komórki.
 \end{document}
