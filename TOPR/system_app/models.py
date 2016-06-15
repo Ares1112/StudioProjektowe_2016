@@ -121,3 +121,15 @@ class Pogoda(models.Model):
 
     class Meta:
         verbose_name_plural = 'Pogody'
+      
+        
+class StrefaZagrozenia(models.Model):
+	srodek = models.FloatField()
+	srednica = models.IntegerField()
+	nazwa = models.TextField()
+	
+	def __unicode__(self):
+		return self.nazwa
+		
+	class Meta:
+		verbose_name_plural = 'Strefy zagrozenia'

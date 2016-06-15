@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{longtable}
+\usepackage{hyperref}
 \title{System wspomagający pracę ratowników górskich Babiej Góry}
 \author{Arkadiusz Błasiak, Szymon Nowak}
 \date{}
@@ -17,6 +18,17 @@
 System ma na celu wspomagać pracę ratowników górskich Babiej Góry. Dokładne informacje o warunkach pogodowych i lokalizacje pobierane z BTS’ów, pomogą ratownikom monitorować szlaki z większą dokładnością, przyspieszyć czas reakcji oraz podjąć decyzję o rozpoczęciu akcji ratunkowej.
 \section{Narzędzia}
 Do stworzenia aplikacji został wykorzystany framework webowy \textbf{Django} oraz język Python. Przesyłanie komunikatów między nadajnikami a serwerem realizowane jest za pomocą brokera wiadomości \textbf{Apache Kafka}.
+\section{Konfiguracja}
+\begin{enumerate}
+\item Wykonaj kroki 1 oraz 2 z sekcji "Quick Start" według instrukcji na stronie \url{http://kafka.apache.org/documentation.html#quickstart}
+\item Zainstaluj Pythona 2.7 \url{https://www.python.org/download/releases/2.7/}
+\item Zainstaluj menedżer pakietów Pythona -- pip \url{https://pip.pypa.io/en/stable/installing/}
+\item Będąc w katalogu z projektem, zainstaluj wymagane pakiety za pomocą polecenia \textit{pip install -r requirements.txt}
+\item Uruchom serwer za pomocą polecenia \textit{python manage.py runserver 0.0.0.0:8000}
+\item Serwer zostanie uruchomiony na porcie 8000, wpisz w przeglądarce \url{http://localhost:8000} aby wejść do aplikacji
+\item Uruchom odbiorniki -- użyj polecenia \textbf{python odbiornikN.py &}, ampersand sprawi, że proces przejdzie w tło.\\ PAMIĘTAJ! Aby odbiorniki/nadajniki poprawnie funkcjonowały, serwer Apache Kafka musi działać.
+\end{enumerate}
+\newpage
 \section{Podstawowe założenia}
 \begin{enumerate}
 \item Babia Góra podzielona jest na 11 szlaków o różnej długości i różnym poziomie trudności (żółty, zielony, niebieski, czarny, czerwony). Dla każdego szlaku obliczana będzie skala zagrożenia
