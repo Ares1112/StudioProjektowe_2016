@@ -124,9 +124,10 @@ class Pogoda(models.Model):
       
         
 class StrefaZagrozenia(models.Model):
-	srodek = models.FloatField()
-	srednica = models.IntegerField()
-	nazwa = models.TextField()
+	pozycja_N = models.FloatField()
+	pozycja_E = models.FloatField()
+	promien = models.IntegerField(help_text = 'jednostka [m]')
+	nazwa = models.CharField(max_length=255)
 	
 	def __unicode__(self):
 		return self.nazwa

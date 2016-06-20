@@ -26,7 +26,7 @@ Do stworzenia aplikacji został wykorzystany framework webowy \textbf{Django} or
 \item Będąc w katalogu z projektem, zainstaluj wymagane pakiety za pomocą polecenia \textit{pip install -r requirements.txt}
 \item Uruchom serwer za pomocą polecenia \textit{python manage.py runserver 0.0.0.0:8000}
 \item Serwer zostanie uruchomiony na porcie 8000, wpisz w przeglądarce \url{http://localhost:8000} aby wejść do aplikacji
-\item Uruchom odbiorniki -- użyj polecenia \textbf{python odbiornikN.py &}, ampersand sprawi, że proces przejdzie w tło.\\ PAMIĘTAJ! Aby odbiorniki/nadajniki poprawnie funkcjonowały, serwer Apache Kafka musi działać.
+\item Uruchom odbiorniki -- użyj polecenia \textbf{python odbiornikN.py \&}, ampersand sprawi, że proces przejdzie w tło.\\ PAMIĘTAJ! Aby odbiorniki/nadajniki poprawnie funkcjonowały, serwer Apache Kafka musi działać.
 \end{enumerate}
 \newpage
 \section{Podstawowe założenia}
@@ -197,16 +197,16 @@ lawin. \\\hline
 \newpage
 \section{Sytuacje alarmowe -- turyści}
 \begin{center}
-\begin{longtable}{ | p{15cm} | }
+\begin{longtable}{ | p{10cm} | p{5cm} | }
 \hline
-	\textbf{Sytuacja alarmowa}\\\hline
+	\textbf{Sytuacja alarmowa} & \textbf{Kiedy występuje}\\\hline
 	Turysta przebywa w jednym miejscu przez
 dłuższy czas. Możliwe zasłabnięcie, utracenie
-przytomności.\\\hline
+przytomności. & Turysta nie rusza się od 15 minut\\\hline
 	Turysta znajduje się w miejscu zabronionym lub
 zamknietym ze wzgledu na panujace warunki
-atmosferyczne np zagrozenie lawinowe.\\\hline
-	Turysta oddalił się od grupy. Możliwe zgubienie.\\\hline
+atmosferyczne np zagrozenie lawinowe. & Turysta wchodzi na obszar zagrożenia\\\hline
+	Turysta oddalił się od grupy. Możliwe zgubienie. & Turysta oddalił się od lidera grupy na >= 200m\\\hline
 \end{longtable}
 \end{center}
 \newpage
@@ -277,4 +277,53 @@ przy danych z 3 btsow lokalizacja telefonu będzie się znajdować na przecięci
 \end{center}
 Dokładność takiego namierzania: od 50 do 550 (im więcej BTSów tym dokładniejsza
 pozycja). Dla ułatwienia, w projekcie, nadajnik przesyła dokładne koordynaty GPS komórki.
+\newpage
+\section{Interfejs użytkownika}
+Po wejściu do aplikacji należy się zalogować, domyślny login to \textbf{admin}, a hasło \textbf{adminadmin}. Hasło można zmienić w konsoli za pomocą komendy \textbf{python manage.py createsuperuser}.
+\begin{center}
+\includegraphics[scale=1]{ui0.png}
+\end{center}
+\subsection{Główny interfejs}
+Główny interfejs wygląda następująco
+\begin{center}
+\includegraphics[scale=0.4]{ui1.png}
+\end{center}
+Po lewej znajduje się mapa z naniesionymi szlakami oraz pozycjami turystów. Żółte pinezki symbolizują punkty końcowe/początkowe szlaków. Zielone kropki to pozycje turystów. Po prawej stronie znajduje się informacja o aktualnym poziomie zagrożenia na poszczególnych szlakach. Jeśli poziom jest wysoki, pozycja zaznaczana jest na czerwono.
+\subsection{Menu}
+Strzałka u góry rozwija menu
+\begin{center}
+\includegraphics[scale=0.4]{ui2.png}
+\end{center}
+Dostępne pozycje to
+\begin{itemize}
+\item Monitoruj szlaki (domyślny widok po zalogowaniu do aplikacji) -- stan szlaków
+\item Turyści na szlakach -- monitorowanie czy turystom nic nie grozi
+\item Warunki pogodowe -- jaka pogoda panuje na szlakach
+\item Panel administracyjny -- zarządzanie systemem (m.in. dodawanie grup, ustawienia szlaków, tworzenie stref zagrożonych)
+\end{itemize}
+\subsection{Turyści na szlakach}
+\begin{center}
+\includegraphics[scale=0.4]{ui3.png}
+\end{center}
+Po lewej znajduje się mapa z naniesionymi szlakami oraz pozycjami turystów. Żółte pinezki symbolizują punkty końcowe/początkowe szlaków. Zielone kropki to pozycje turystów. Po prawej stronie znajduje się informacja o zagrożonych turystach -- numer telefonu oraz rodzaj zagrożenia.
+\subsection{Warunki pogodowe}
+\begin{center}
+\includegraphics[scale=0.4]{ui4.png}
+\end{center}
+W tej sekcji pokazane są aktualne warunki pogodowe na szlakach -- nazwa szlaku, ostatnia aktualizacja warunków pogodowych oraz stopnie poszczególnych czynników.
+\subsection{Panel administracyjny}
+\begin{center}
+\includegraphics[scale=0.4]{ui5.png}
+\end{center}
+Najważniejszymi elementami panelu są \textbf{Grupy (TOURIST\_APP)} oraz \textbf{Strefy zagrożenia (SYSTEM\_APP)}. Reszta opcji nie wymaga zmian, jednak gdyby zaszła taka potrzeba, system można dostosować (dodawanie/usuwanie/edycja szlaków, stopni warunków pogodowych, zarządzanie użytkownikami)
+\subsubsection{Strefy zagrożenia}
+\begin{center}
+\includegraphics[scale=1]{ui6.png}
+\end{center}
+W tej zakładce można dodać, edytować oraz usunąć strefy zagrożenia. Aby dodać nową, należy wprowadzić odpowiednie pozycje GPS, promień (strefa zagrożenia jest kołem) oraz nazwę strefy
+\subsubsection{Grupy}
+\begin{center}
+\includegraphics[scale=1]{ui7.png}
+\end{center}
+W tej zakładce można dodać, edytować oraz usunąć grupy turystów. Aby dodać nową, należy wybrać lidera oraz podać nazwę grupy. Turystów do grupy przyporządkowuje się z zakładki \textbf{Turyści}
 \end{document}

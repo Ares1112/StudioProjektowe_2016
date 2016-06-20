@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Wiatr, Mgla, Temperatura, Deszcz, Pogoda, Lawina, StanAlarmowy, Szlak
+from .models import Wiatr, Mgla, Temperatura, Deszcz, Pogoda, Lawina, StanAlarmowy, Szlak, StrefaZagrozenia
 
 @admin.register(Wiatr)
 class WiatrAdmin(admin.ModelAdmin):
@@ -38,3 +38,7 @@ class StanAlarmowyAdmin(admin.ModelAdmin):
 @admin.register(Szlak)
 class SzlakAdmin(admin.ModelAdmin):
     list_display = ('nazwa', 'stan_alarmowy', 'kolor', 'trudnosc')
+	
+@admin.register(StrefaZagrozenia)
+class StrefaZagrozeniaAdmin(admin.ModelAdmin):
+	list_display = ('nazwa', 'pozycja_N', 'pozycja_E', 'promien')
