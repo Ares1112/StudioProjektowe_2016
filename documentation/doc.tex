@@ -326,4 +326,192 @@ W tej zakładce można dodać, edytować oraz usunąć strefy zagrożenia. Aby d
 \includegraphics[scale=1]{ui7.png}
 \end{center}
 W tej zakładce można dodać, edytować oraz usunąć grupy turystów. Aby dodać nową, należy wybrać lidera oraz podać nazwę grupy. Turystów do grupy przyporządkowuje się z zakładki \textbf{Turyści}
+\section{Diagram klas}
+\begin{center}
+\includegraphics[scale=0.5]{klasy.png}
+\end{center}
+\section{Diagram przypadków użycia}
+\includegraphics[scale=0.7]{uc.png}
+\section{Diagramy aktywności}
+\subsection{Diagram aktywności dla przypadku użycia -- Ustal pozycje turystów}
+\begin{center}
+\includegraphics[scale=0.56]{da1.png}
+\end{center}
+\newpage
+\subsection{Diagram aktywności dla przypadku użycia -- Sprawdź przytomność turystów}
+\includegraphics[scale=0.7]{da2.png}
+\newpage
+\subsection{Diagram aktywności dla przypadku użycia -- Identyfikuj zagrożenia w obrębie grupy}
+\includegraphics[scale=0.7]{da3.png}
+\newpage
+\subsection{Diagram aktywności dla przypadku użycia -- Identyfikuj turystów w obrębie stref zagrożonych}
+\includegraphics[scale=0.7]{da4.png}
+\newpage
+\subsection{Diagram aktywności dla przypadku użycia -- Oblicz skalę zagrożenia}
+\includegraphics[scale=0.56]{da5.png}
+\section{Scenariusze}
+\subsection{Charakterystyka użytkowników}
+\begin{itemize}
+\item ID: AKT\_UZ\\
+Nazwa: Użytkownik/Kontroler\\
+Opis: Użytkownik to osoba częściowo obsługująca aplikację. Wprowadza
+część danych i podejmuje końcową decyzję na podstawie zanalizowanych
+danych o podjęciu akcji ratunkowej albo wysłaniu drona na zwiad.
+\item ID: AKT\_CZ\\
+Nazwa: Czujnik\\
+Opis: Czujniki przekazują dane atmosferyczne niezbędne do wyliczenia skal
+zagrożenia i ustalenia warunków panujących na szlakach i konkretnych
+miejscach.
+\item ID: AKT\_BTS\\
+Nazwa: BTS\\
+Opis: Stacje BTS lokalizują na bieżąco pozycje telefonów komórkowych
+znajdujących się obszarze Babiej Góry i przekazują współrzędne do aplikacji.
+\item ID: AKT\_A\\
+Nazwa: Analizator\\
+Opis: Liczy skalę zagrożenia na podstawie odebranych danych i skali dla
+odpowiednich czynników.
+\item ID: AKT\_BD\\
+Nazwa: Baza danych\\
+Opis: Przechowuje dane nt. aktualnych warunków atmosferycznych,
+informacje o szlakach.
+\end{itemize}
+\newpage
+\begin{longtable}{| p{5cm} | p{10cm} |}
+\hline
+Id & U\_PT \\\hline
+Nazwa & Ustal pozycje turystów \\\hline
+Aktorzy główni & AKT\_BTS \\\hline
+Aktorzy pomocniczy & AKT\_UZ, AKT\_BD \\\hline
+Poziom & Użytkownika \\\hline
+Priorytet & Wysoki \\\hline
+Opis & Określenie pozycji turystów przy użyciu danych ze stacji BTS \\\hline
+Wyzwalacze & Trigger \\\hline
+Warunki początkowe & W systemie dostępne są stacje BTS \\\hline
+Warunki końcowe & Określono pozycje turystów w zasięgu działania \\\hline
+Wyjątki & Brak \\\hline
+Dodatkowe wymagania & Brak \\\hline
+\end{longtable}
+\textbf{Scenariusz główny}
+\begin{enumerate}
+\item System szuka telefonów w zasięgu stacji BTS
+\item System dla każdego znalezionego telefonu sprawdza, czy jest w zasięgu obszaru działania
+\item System określa pozycję GPS komórki
+\item System wysyła dane o lokalizacjach turystów do bazy
+\end{enumerate}
+\textbf{Scenariusz alternatywny} \\
+2.a.1 Jeżeli żaden telefon nie zostanie znaleziony, system ponawia wyszukiwanie\\
+\textbf{Scenariusz alternatywny}\\
+3.b.1. Jeżeli telefon znajduje się poza obszarem działania
+\newpage
+\begin{longtable}{| p{5cm} | p{10cm} |}
+\hline
+Id & S\_PT \\\hline
+Nazwa & Sprawdź przytomność turystów \\\hline
+Aktorzy główni & AKT\_UZ \\\hline
+Aktorzy pomocniczy & AKT\_BD \\\hline
+Poziom & Użytkownika \\\hline
+Priorytet & Wysoki \\\hline
+Opis & Sprawdzenie przytomności turystów na podstawie ich ruchu \\\hline
+Wyzwalacze & Trigger \\\hline
+Warunki początkowe & System posiada informacje na temat ostatniego ruchu turystów \\\hline
+Warunki końcowe & System definiuje turystę jako przytomnego/nieprzytomnego \\\hline
+Wyjątki & Brak \\\hline
+Dodatkowe wymagania & Brak \\\hline
+\end{longtable}
+\textbf{Scenariusz główny}
+\begin{enumerate}
+\item System pobiera czas ostatniego ruchu turysty
+\item Jeżeli czas ostatniego ruchu był dawniej niż 15 minut, system zapisuje tą informację w bazie danych
+\item System wyświetla pracownikowi GOPR informacje o potencjalnym zagrożeniu
+\item System decyduje o wysłaniu drona albo ekipy ratunkowej
+\end{enumerate}
+\textbf{Scenariusz alternatywny}\\
+3.a.1. Jeżeli od ostatniego ruchu turysty minęło mniej niż 15 min, system przechodzi do weryfikacji kolejnego turysty
+\newpage
+\begin{longtable}{| p{5cm} | p{10cm} |}
+\hline
+Id & I\_ZWOG \\\hline
+Nazwa & Identyfikuj zagrożenie w obrębie grupy \\\hline
+Aktorzy główni & AKT\_BTS \\\hline
+Aktorzy pomocniczy & AKT\_UZ, AKT\_BD \\\hline
+Poziom & Użytkownika \\\hline
+Priorytet & Średni \\\hline
+Opis & Sprawdzanie, czy od zorganizowanej grupy osób nie odłączył się żaden turysta \\\hline
+Wyzwalacze & Trigger \\\hline
+Warunki początkowe & System posiada zdefiniowane grupy turystów oraz ustalonych liderów każdej z tych grup \\\hline
+Warunki końcowe & System zdefiniuje turystę, czy trwa przy swojej grupie czy się od niej odłączył \\\hline
+Wyjątki & Brak \\\hline
+Dodatkowe wymagania & Brak \\\hline
+\end{longtable}
+\textbf{Scenariusz główny}
+\begin{enumerate}
+\item System pobiera położenie turysty
+\item System sprawdza, czy turysta jest przypisany do grupy i czy jest jej liderem
+\item Jeżeli jest należy do grupy, ale nie jest jej liderem, system sprawdza, czy turysta jest oddalony od lidera grupy o ponad 200m
+\item Jeżeli tak, system zapisuje tą informację w bazie danych
+\item System wyświetla pracownikowi GOPR informacje o potencjalnym zagrożeniu
+\item System decyduje o wysłaniu drona albo ekipy ratunkowej
+\end{enumerate}
+\textbf{Scenariusz alternatywny}\\
+4.a.1.	Jeżeli turysta nie jest przypisany do grupy, system identyfikuje go jako turystę indywidualnego i przechodzi do kolejnego turysty\\
+\textbf{Scenariusz alternatywny}\\
+3.b.1.	Jeżeli turysta jest przypisany do grupy i  jest jej liderem, system przechodzi do kolejnego turysty\\
+\textbf{Scenariusz alternatywny}\\
+4.c.1.	Jeżeli jest bliżej niż 200m od swojego lidera, system przechodzi do kolejnego turysty
+\newpage
+\begin{longtable}{| p{5cm} | p{10cm} |}
+\hline
+Id & I\_TWOSZ \\\hline
+Nazwa & Identyfikuj turystów w obrębie stref zagrożonych \\\hline
+Aktorzy główni & AKT\_BTS \\\hline
+Aktorzy pomocniczy & AKT\_UZ, AKT\_BD \\\hline
+Poziom & Użytkownika \\\hline
+Priorytet & Średni \\\hline
+Opis & Sprawdzanie, czy turysta znajduje się w obrębie stref zagrożonych \\\hline
+Wyzwalacze & Trigger \\\hline
+Warunki początkowe & System posiada zdefiniowane strefy zagrożone \\\hline
+Warunki końcowe & System zdefiniuje turystę, czy znajduje się w strefie zagrożonej czy nie \\\hline
+Wyjątki & Brak \\\hline
+Dodatkowe wymagania & Brak \\\hline
+\end{longtable}
+\textbf{Scenariusz główny}
+\begin{enumerate}
+\item System pobiera położenie turysty
+\item System sprawdza, czy turysta znajduje się w zasięgu strefy zagrożonej
+\item Jeżeli tak, system zapisuje tą informację w bazie danych
+\item System wyświetla pracownikowi GOPR informacje o potencjalnym zagrożeniu
+\item System decyduje o wysłaniu drona albo ekipy ratunkowej
+\end{enumerate}
+\textbf{Scenariusz alternatywny}\\
+4.a.2.	Jeżeli turysta nie znajduje się w strefie zagrożonej, system definiuje go jako bezpiecznego i przechodzi do kolejnego turysty
+\newpage
+\begin{longtable}{| p{5cm} | p{10cm} |}
+\hline
+Id & O\_SZ \\\hline
+Nazwa & Oblicz skalę zagrożenia \\\hline
+Aktorzy główni & AKT\_BTS \\\hline
+Aktorzy pomocniczy & AKT\_UZ, AKT\_BD \\\hline
+Poziom & Użytkownika \\\hline
+Priorytet & Średni \\\hline
+Opis & Określenie stopnia zagrożenia dla szlaku \\\hline
+Wyzwalacze & Trigger \\\hline
+Warunki początkowe & System posiada zapisane w bazie szlaki \\\hline
+Warunki końcowe & System przydzieli szlakowi stopień zagrożenia \\\hline
+Wyjątki & Brak \\\hline
+Dodatkowe wymagania & Brak \\\hline
+\end{longtable}
+\textbf{Scenariusz główny}
+\begin{enumerate}
+\item System odczytuje poziom trudności szlaków oraz warunki pogodowe panujące na nim
+\item System oblicza skalę zagrożenia według wzoru (suma skal dla warunków atmosferycznych + zagrożenie lawinowe + trudność szlaku) / 4
+\item System zapisuje stopień zagrożenia w bazie danych
+\item Jeżeli stopień jest niższy niż 2, system wyświetla informacje o stopniu zagrożenia
+\item System pyta pracownika GOPR o chęć podjęcia akcji
+\item Jeżeli pracownik wyrazi taką chęć, system wysyła drona albo ekipę ratunkową
+\end{enumerate}
+\textbf{Scenariusz alternatywny}\\
+6.b.1. Stopień zagrożenia jest większy lub równy 2, system wyświetla informacje o podwyższonym stopniu zagrożenia\\
+6.b.2. System pyta pracownika GOPR o chęć podjęcia akcji\\
+\textbf{Scenariusz alternatywny}\\
+6.b.3.	Jeżeli pracownik nie wyrazi chęci podejmowania akcji, system zakończy działania dla tego szlaku i przejdzie do kolejnego
 \end{document}
