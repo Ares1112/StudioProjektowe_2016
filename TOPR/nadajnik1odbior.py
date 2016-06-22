@@ -24,7 +24,7 @@ for message in consumer:
     position = message.value.split(',')
     try:
         tourist = Turysta.objects.get(numer_telefonu=message.key)
-        print tourist.pozycja_N, tourist.pozycja_E, position[0], position[1]
+        print tourist.numer_telefonu, tourist.pozycja_N, tourist.pozycja_E, position[0], position[1]
         if tourist.pozycja_N != float(position[0]) or tourist.pozycja_E != float(position[1]):
             tourist.pozycja_N = position[0]
             tourist.pozycja_E = position[1]

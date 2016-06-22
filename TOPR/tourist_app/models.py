@@ -58,7 +58,7 @@ class Turysta(models.Model):
             if zagrozenie:
                 zagrozenie.delete()
         # odlaczenie od grupy
-        if self.grupa or not self.grupa.lider == self:
+        if self.grupa and not self.grupa.lider == self:
             if haversine(self.pozycja_N, self.pozycja_E, self.grupa.lider.pozycja_N, self.grupa.lider.pozycja_E) >= 0.2:
                 zagrozenie = ZagrozenieTurysty.objects.filter(turysta=self, zagrozenie='oog').first()
                 if not zagrozenie:
