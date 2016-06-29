@@ -326,6 +326,17 @@ W tej zakładce można dodać, edytować oraz usunąć strefy zagrożenia. Aby d
 \includegraphics[scale=1]{ui7.png}
 \end{center}
 W tej zakładce można dodać, edytować oraz usunąć grupy turystów. Aby dodać nową, należy wybrać lidera oraz podać nazwę grupy. Turystów do grupy przyporządkowuje się z zakładki \textbf{Turyści}
+\newpage
+\section{Scenariusze testowe}
+Scenariusze włącza się za pomocą komendy \textbf{python scenario\_NAZWA.py}
+\begin{itemize}
+\item \textbf{scenario\_unconscious.py} -- Scenariusz tworzy turystę o numerze telefonu 1234567890 w pobliżu Babiej Góry, po minucie oczekiwania (normalnie 15 minut, w celu testów czas został skrócony) w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
+\item \textbf{scenario\_group.py} -- Scenariusz tworzy dwóch turystów o numerach telefonu 123456789 oraz 1234567891 w pobliżu Babiej Góry. Jeden turysta jest liderem grupy, drugi jest przyporządkowany do tej grupy. Drugi zaczyna się oddalać od lidera, po odejściu na dystans 200m w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
+\item \textbf{scenario\_danger\_zone.py} -- Scenariusz tworzy dwóch turystów o numerach telefonu 223456789 i 2234567891 oraz strefę zagrożenia o promieniu 100m w pobliżu Babiej Góry. Jeden z turystów stoi w środku strefy zagrożenia, natomiast drugi się do niej zbliża. Po wejściu do strefy, w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
+\item \textbf{scenario\_bear.py} -- Scenaraiusz tworzy turystę o numerze telefonu 323456789 oraz niedźwiedzia o identyfikatorze niedźwiedz1 w pobliżu Małej Babiej Góry. Turysta i niedźwiedź zbliżają się do siebie. Gdy dystans między nimi będzie wynosił mniej niż 500m w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
+\item \textbf{scenario\_weather.py} -- Scenariusz zmienia warunki pogodowe na szlakach. Co 5 sekund aktualizowana jest pogoda, po kolei, na każdym ze szlaków. W konsoli wyświetlona jest informacja o zmienionym stanie. W zakładce \textit{Monitoruj szlaki} powinny zmieniać się odpowiednie stany alarmowe.
+\end{itemize}
+\newpage
 \section{Diagram klas}
 \begin{center}
 \includegraphics[scale=0.5]{klasy.png}

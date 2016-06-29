@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
 <style type="text/css">
     .navbar-inverse {
         background-color: #006FAF
@@ -125,7 +125,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://disputebills.com"><img
+            <a class="navbar-brand"><img
                     src="{% static 'topr-logo.png' %}"
                     alt="TOPR"
                     style="zoom: 40%;">
@@ -134,16 +134,16 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{% url 'home_view' %}">Monitoruj szlaki <span class="glyphicon glyphicon-road"></span></a>
+                    <a href="{% url 'home_view' %}">{% trans 'Monitoruj szlaki' %} <span class="glyphicon glyphicon-road"></span></a>
                 </li>
                 <li>
-                    <a href="{% url 'tourists_view' %}">Turyści na szlakach <span class="glyphicon glyphicon-user"></span></a>
+                    <a href="{% url 'tourists_view' %}">{% trans 'Turyści na szlakach' %} <span class="glyphicon glyphicon-user"></span></a>
                 </li>
                 <li>
-                    <a href="{% url 'weather_view' %}">Warunki pogodowe <span class="glyphicon glyphicon-cloud"></span></a>
+                    <a href="{% url 'weather_view' %}">{% trans 'Warunki pogodowe' %} <span class="glyphicon glyphicon-cloud"></span></a>
                 </li>
                 <li>
-                    <a href="/admin">Panel administracyjny <span class="glyphicon glyphicon-cog"></span></a>
+                    <a href="/admin">{% trans 'Panel administracyjny' %} <span class="glyphicon glyphicon-cog"></span></a>
                 </li>
             </ul>
             <div class='triangle-down'>

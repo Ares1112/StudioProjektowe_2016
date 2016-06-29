@@ -1,0 +1,347 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-24 12:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: TOPR/settings.py:123
+msgid "Polski"
+msgstr "Polish"
+
+#: TOPR/settings.py:124
+msgid "Angielski"
+msgstr "English"
+
+#: TOPR/templates/menu.html:137
+msgid "Monitoruj szlaki"
+msgstr "Monitor trails"
+
+#: TOPR/templates/menu.html:140
+msgid "Turyści na szlakach"
+msgstr "Tourists on trails"
+
+#: TOPR/templates/menu.html:143
+msgid "Warunki pogodowe"
+msgstr "Weather"
+
+#: TOPR/templates/menu.html:146
+msgid "Panel administracyjny"
+msgstr "Administration panel"
+
+#: system_app/models.py:13
+msgid "żółty"
+msgstr "yellow"
+
+#: system_app/models.py:13
+msgid "niebieski"
+msgstr "blue"
+
+#: system_app/models.py:13
+msgid "zielony"
+msgstr "green"
+
+#: system_app/models.py:13
+msgid "czarny"
+msgstr "black"
+
+#: system_app/models.py:13
+msgid "czerwony"
+msgstr "red"
+
+#: system_app/models.py:17 system_app/models.py:30 system_app/models.py:42
+#: system_app/models.py:55 system_app/models.py:69
+msgid "Stopień"
+msgstr "Level"
+
+#: system_app/models.py:18
+msgid "Prędkość minimalna"
+msgstr "Minimum speed"
+
+#: system_app/models.py:19
+msgid "Prędkość maksymalna"
+msgstr "Maximum speed"
+
+#: system_app/models.py:25 system_app/models.py:116
+msgid "Stopień wiatru"
+msgstr "Wind level"
+
+#: system_app/models.py:26
+msgid "Stopnie wiatru"
+msgstr "Wind levels"
+
+#: system_app/models.py:31 system_app/models.py:70
+msgid "Opis"
+msgstr "Description"
+
+#: system_app/models.py:37 system_app/models.py:117
+msgid "Stopień mgły"
+msgstr "Fog level"
+
+#: system_app/models.py:38
+msgid "Stopnie mgły"
+msgstr "Fog levels"
+
+#: system_app/models.py:43
+msgid "Powyżej"
+msgstr "Above"
+
+#: system_app/models.py:44
+msgid "Poniżej"
+msgstr "Under"
+
+#: system_app/models.py:50 system_app/models.py:118
+msgid "Stopień temperatury"
+msgstr "Temperature level"
+
+#: system_app/models.py:51
+msgid "Stopnie temperatury"
+msgstr "Temperature levels"
+
+#: system_app/models.py:56
+msgid "Deszcz minimanly"
+msgstr "Minimum rain"
+
+#: system_app/models.py:57
+msgid "Deszcz maksymalny"
+msgstr "Maximum rain"
+
+#: system_app/models.py:58 system_app/templates/js/pogoda_react.html.py:39
+msgid "Wiatr"
+msgstr "Wind"
+
+#: system_app/models.py:64 system_app/models.py:119
+msgid "Stopień deszczu"
+msgstr "Rain level"
+
+#: system_app/models.py:65
+msgid "Stopnie deszczu"
+msgstr "Wind levels"
+
+#: system_app/models.py:76 system_app/models.py:120
+msgid "Stopień lawiny"
+msgstr "Avalanche level"
+
+#: system_app/models.py:77
+msgid "Stopnie lawiny"
+msgstr "Avalanche levels"
+
+#: system_app/models.py:81
+msgid "System monitoruje"
+msgstr "System is monitoring"
+
+#: system_app/models.py:82
+msgid "Monitorowanie turystów na zagrożonych obszarach"
+msgstr "Monitoring tourist in danger zones"
+
+#: system_app/models.py:83
+msgid "Wysłanie drona w celu lepszego monitorowania szlaku"
+msgstr "Sending drone for better trail monitoring"
+
+#: system_app/models.py:84
+msgid ""
+"Wysłanie drona do zbadania sytuacji i podjęcia decyzji o wysłaniu ekipy "
+"ratowniczej"
+msgstr ""
+"Sending drone to examine situation and make decision about sending rescue "
+"team"
+
+#: system_app/models.py:85
+msgid "Przechwycenie turystów"
+msgstr "Tourist interception"
+
+#: system_app/models.py:89
+msgid "Poziom"
+msgstr "Level"
+
+#: system_app/models.py:90
+msgid "Działanie"
+msgstr "Action"
+
+#: system_app/models.py:96 system_app/models.py:101
+#: system_app/templates/js/szlaki_react.html:37
+msgid "Stan alarmowy"
+msgstr "State of emergency"
+
+#: system_app/models.py:97
+msgid "Stany alarmowe"
+msgstr "States of emergency"
+
+#: system_app/models.py:103
+msgid "Trudność"
+msgstr "Difficulty"
+
+#: system_app/models.py:104 system_app/templates/js/szlaki_react.html.py:38
+msgid "Kolor"
+msgstr "Colour"
+
+#: system_app/models.py:105 system_app/models.py:147 tourist_app/models.py:15
+msgid "Nazwa"
+msgstr "Name"
+
+#: system_app/models.py:111 system_app/models.py:122
+#: system_app/templates/js/pogoda_react.html:37
+msgid "Szlak"
+msgstr "Trail"
+
+#: system_app/models.py:112
+msgid "Szlaki"
+msgstr "Trails"
+
+#: system_app/models.py:121
+msgid "Czas"
+msgstr "Time"
+
+#: system_app/models.py:139
+msgid "Pogoda"
+msgstr "Weather"
+
+#: system_app/models.py:140
+msgid "Pogody"
+msgstr "Weathers"
+
+#: system_app/models.py:144 tourist_app/models.py:27 tourist_app/models.py:125
+msgid "Pozycja N"
+msgstr "Position N"
+
+#: system_app/models.py:145 tourist_app/models.py:28 tourist_app/models.py:126
+msgid "Pozycja E"
+msgstr "Position E"
+
+#: system_app/models.py:146
+msgid "Promień"
+msgstr "Radius"
+
+#: system_app/models.py:153
+msgid "Strefa zagrożenia"
+msgstr "Danger zone"
+
+#: system_app/models.py:154
+msgid "Strefy zagrożenia"
+msgstr "Danger zones"
+
+#: system_app/templates/js/pogoda_react.html:33
+msgid "Pogoda na szlakach"
+msgstr "Weather on trails"
+
+#: system_app/templates/js/pogoda_react.html:38
+msgid "Ostatnia aktualizacja"
+msgstr "Last update"
+
+#: system_app/templates/js/pogoda_react.html:39
+#: system_app/templates/js/pogoda_react.html:40
+#: system_app/templates/js/pogoda_react.html:41
+#: system_app/templates/js/pogoda_react.html:42
+#: system_app/templates/js/pogoda_react.html:43
+msgid "stopień"
+msgstr "level"
+
+#: system_app/templates/js/pogoda_react.html:40
+msgid "Mgła"
+msgstr "Fog"
+
+#: system_app/templates/js/pogoda_react.html:41
+msgid "Temperatura"
+msgstr "Temperature"
+
+#: system_app/templates/js/pogoda_react.html:42
+msgid "Deszcz"
+msgstr "Rain"
+
+#: system_app/templates/js/pogoda_react.html:43
+msgid "Lawina"
+msgstr "Avalanche"
+
+#: system_app/templates/js/szlaki_react.html:32
+msgid "Stan szlaków"
+msgstr "Trails status"
+
+#: system_app/templates/js/szlaki_react.html:36
+msgid "Nazwa szlaku"
+msgstr "Trail name"
+
+#: system_app/templates/js/szlaki_react.html:39
+msgid "Sugerowane działanie"
+msgstr "Suggested actions"
+
+#: tourist_app/models.py:14
+msgid "Lider"
+msgstr "Leader"
+
+#: tourist_app/models.py:21 tourist_app/models.py:30
+msgid "Grupa"
+msgstr "Group"
+
+#: tourist_app/models.py:22
+msgid "Grupy"
+msgstr "Groups"
+
+#: tourist_app/models.py:26
+msgid "Numer telefonu"
+msgstr "Phone number"
+
+#: tourist_app/models.py:29
+msgid "Ostatni ruch"
+msgstr "Last move"
+
+#: tourist_app/models.py:102 tourist_app/models.py:114
+msgid "Turysta"
+msgstr "Tourist"
+
+#: tourist_app/models.py:103
+msgid "Turyści"
+msgstr "Tourists"
+
+#: tourist_app/models.py:107
+msgid "Możliwe zasłabniecie, wyślij drona"
+msgstr "Tourist may be unconscious, send drone"
+
+#: tourist_app/models.py:108
+msgid "Turysta w strefie zagrożenia"
+msgstr "Tourist in danger zone"
+
+#: tourist_app/models.py:109
+msgid "Turysta oddalił się od lidera grupy"
+msgstr "Tourist moved away from group leader"
+
+#: tourist_app/models.py:110
+msgid "Niedźwiedź blisko turysty"
+msgstr "Bear near tourist"
+
+#: tourist_app/models.py:115 tourist_app/templates/js/tourist_react.html.py:37
+msgid "Zagrożenie"
+msgstr "Danger"
+
+#: tourist_app/models.py:121
+msgid "Zagrozenie turysty"
+msgstr "Tourist danger"
+
+#: tourist_app/models.py:122
+msgid "Zagrozenia turystow"
+msgstr "Tourists dangers"
+
+#: tourist_app/models.py:127
+msgid "Identyfikator"
+msgstr "Identifier"
+
+#: tourist_app/models.py:133
+msgid "Niedźwiedź"
+msgstr "Bear"
+
+#: tourist_app/models.py:134
+msgid "Niedźwiedzie"
+msgstr "Bears"
+
+#: tourist_app/templates/js/tourist_react.html:32
+msgid "Zagrożeni turyści na szlakach"
+msgstr "Unsafe tourists on trails"
+
+#: tourist_app/templates/js/tourist_react.html:36
+msgid "Telefon"
+msgstr "Phone number"

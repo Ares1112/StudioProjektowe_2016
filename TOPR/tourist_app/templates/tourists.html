@@ -9,6 +9,6 @@
 		<div id="map" class="map col-md-8" style="height: 750px;"></div>
         <div class="col-md-4" id="tourists"></div>
     </div>
-    <script type="text/babel" src="{% static 'js/tourist_react.js'%}"></script>
+    {% include 'js/tourist_react.html' %}
 	{% include 'map.html' %}
 {% endblock %}

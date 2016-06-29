@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 {% block head %}
     <link rel="stylesheet" href="http://openlayers.org/en/v3.16.0/css/ol.css" type="text/css">
     <script src="http://openlayers.org/en/v3.16.0/build/ol.js"></script>
@@ -9,7 +9,7 @@
         <div id="map" class="map col-md-8" style="height: 750px;"></div>
         <div class="col-md-4" id="szlaki"></div>
     </div>
-    <script type="text/babel" src="{% static 'js/szlaki_react.js'%}"></script>
+    {% include  'js/szlaki_react.html' %}
     {% include 'map.html' %}
         
 {% endblock %}

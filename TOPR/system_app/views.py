@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Szlak, Pogoda
+from .models import StrefaZagrozenia
 
 @login_required
 def home_view(request):
-    return render(request, 'dashboard.html', {'szlaki': Szlak.objects.all()})
+    return render(request, 'dashboard.html', {'danger_zones': StrefaZagrozenia.objects.all()})
 
 @login_required
 def weather_view(request):

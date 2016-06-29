@@ -11,7 +11,7 @@ def api_get_routes(request):
 def api_get_routes_info(request):
     all_routes = Szlak.objects.all()
     info = [{'key': szlak.id, 'nazwa': szlak.nazwa, 'poziom': szlak.stan_alarmowy.poziom,
-             'kolor': szlak.get_kolor_display(), 'dzialanie': szlak.stan_alarmowy.dzialanie} for szlak in all_routes]
+             'kolor': szlak.get_kolor_display(), 'dzialanie': szlak.stan_alarmowy.get_dzialanie_display()} for szlak in all_routes]
     return JsonResponse(info, safe=False)
 
 def api_get_weather_info(request):
