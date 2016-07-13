@@ -17,12 +17,12 @@ function reloadLayer(map) {
 			format: new ol.format.KML()
 		})
 	});
+    map.addLayer(tourists);
+    map.addLayer(bears);
 	map.removeLayer(last_layer);
     map.removeLayer(last_bear);
 	last_layer = tourists;
     last_bear = bears;
-	map.addLayer(tourists);
-    map.addLayer(bears);
 }
 
 var projection = ol.proj.get('EPSG:3857');

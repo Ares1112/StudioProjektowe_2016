@@ -6,7 +6,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{longtable}
-\usepackage{hyperref}
+\usepackage[breaklinks]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
 \title{System wspomagający pracę ratowników górskich Babiej Góry}
 \author{Arkadiusz Błasiak, Szymon Nowak}
 \date{}
@@ -18,9 +19,92 @@
 System ma na celu wspomagać pracę ratowników górskich Babiej Góry. Dokładne informacje o warunkach pogodowych i lokalizacje pobierane z BTS’ów, pomogą ratownikom monitorować szlaki z większą dokładnością, przyspieszyć czas reakcji oraz podjąć decyzję o rozpoczęciu akcji ratunkowej.
 \section{Narzędzia}
 Do stworzenia aplikacji został wykorzystany framework webowy \textbf{Django} oraz język Python. Przesyłanie komunikatów między nadajnikami a serwerem realizowane jest za pomocą brokera wiadomości \textbf{Apache Kafka}.
+\section{Apache Kafka}
+\subsection{Opis}
+Apache Kafka jest open-source’owym brokerem wiadomości stworzony przez Apache. Jest skalowalną kolejką wiadomości zaprojektowaną jako rozproszony log transakcji, czyli zapis historii wszystkich wykonywanych akcji.
+\begin{center}
+\includegraphics[scale=1]{cluster.png}
+\end{center}
+\subsection{Instrukcja instalacji}
+\begin{enumerate}
+\item Pobierz wersję 0.10.0.0 i rozpakuj ją:\\
+\textbf{> tar -xzf kafka\_2.11-0.10.0.0.tgz}\\
+\textbf{> cd kafka\_2.11-0.10.0.0}\\
+\item Start serwera ZooKeeper\\
+Kafka używa ZooKeepera, więc przed włączeniem serwera Kafki, należy odpalić serwer ZooKeepera, jeżeli żaden nie działa na wybranym urządzeniu. Dla wygody można użyć skryptu dostarczonego przez Kafkę, aby szybko włączyć jedno-węzłową instacje serwera ZooKeeper.\\
+\textbf{> bin/zookeeper-server-start.sh config/zookeeper.properties}\\
+\item Start serwera Kafka\\
+Teraz należy włączyć serwer Kafki\\
+\textbf{> bin/kafka-server-start.sh config/server.properties}
+\end{enumerate}	
+Po wykonaniu powyższych kroków, na maszynie powinna działać instacja serwera Apache Kafka.
+\subsection{Komunikacja nadajnik-odbiornik}
+\begin{center}
+\includegraphics[scale=0.5]{kafka.png}
+\end{center}
+\subsection{Wydajność}
+Metryki określające wydajność Kafki dzielą się na trzy kategorie:
+\begin{itemize}
+\item Metryki brokerów
+\begin{itemize}
+\item Zużycie dysku
+\item Obsługa żądania
+\end{itemize}
+\item Metryki konsumentów
+\begin{itemize}
+\item Przepustowość
+\end{itemize}
+\item Metryki producentów
+\begin{itemize}
+\item Przepustowość
+\end{itemize}
+\end{itemize}
+\subsubsection{Test przepustowości konsumentów i producentów}
+Test wykonany został w celu określenia przepustowości dla czterech scenariuszy: jeden konsument, jeden producent, trzech konsumentów oraz konsument-producent. Wykonywany był na maszynie o 32GB RAMu.
+\begin{itemize}
+\item Jeden konsument 
+
+
+Test polegał na skonsumowaniu 50 milionów niedużych wiadomości w jednym wątku. Wyniki to około 940 tysięcy wiadomości na sekundę, co daje przepustowość na poziomie 90MB/sec
+\item Jeden producent
+
+Wersja testów podobna do pierwszej, z tą różnicą, że zamiast konsumować, produkujemy. Wynik to 786 tysięcy wiadomości na sekundę, co daje około 75,2 MB/sec. Z dwóch pierwszych testów jasno widać, że produkcja jest dużo bardziej wymagająca od konsumpcji. 
+\item Trzech konsumentów
+
+Test polegał na konsumowaniu 50 milionów niedużych wiadomości przez trzech konsumentów na trzech różnych maszynach. Wspólnie konsumowali jeden temat. Wynikiem było około 2,6 miliona wiadomości na sekundę, co dało przepustowość na poziomie 250 MB/sec
+\item Producent-konsument
+
+Test polegał na przeprowadzenie symulacji działania w naturalnym środowisku, czyli w sytuacji, gdzie wytworzona wiadomość zostaje skonsumowana przez konsumenta. Wynikiem jest wydajność na poziomie 795 tysięcy wiadomości na sekundę (75,8 MB/sec), co jest zbliżonym wynikiem do testu jednego producenta. Potwierdza to nasze przypuszczenia co do tego, że konsumpcja wiadomości jest dużo wydajniejsza od produkcji.
+\end{itemize}
+\subsection{Przydatne linki}
+Więcej informacji można znaleźć pod linkami [dostęp 30.06.2016]
+\begin{itemize}
+\item \url{http://kafka.apache.org/07/performance.html} -- Dane na temat wydajności Apache Kafka
+\item \url{https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/} -- Ogólne informacje oraz wydajność
+\item \url{http://kafka.apache.org/documentation.html} -- Dokumentacja Apache Kafka
+\end{itemize}
+\subsection{Systemy alternatywne do Apache Kafka}
+\begin{itemize}
+\item \textbf{RabbitMQ} – open-sourcowy broker wiadomości, napisany w Erlangu. Oprogramowanie RabbitMQ zapewnia:
+\begin{itemize}
+\item Stabilność
+\item Płynny routing
+\item Klustering – kilka serwerów może być połączonych w jeden logiczny broker
+\item Wysoką ilość kolejek
+\end{itemize}
+RabbitMQ sprawdza się dobrze w sytuacji, gdy nie obchodzi nas kolejność dostarczanych wiadomości. W innym wypadku, przegrywa on całkowicie z Apache Kafką w wydajności dostarczania wiadomości w odpowiedniej kolejności. RabbitMQ jest bardziej ukierunkowany na brokera, skupia się na zapewnieniu, że wszystkie wiadomości między konsumentem, a producentem zostaną dostarczone. Dodatkowo, RabbitMQ w przeciwieństwie do Kafki, przechowuje dane o dostarczonych wiadomościach.
+\item \textbf{IBM WebSphere MQ} – pakiet oprogramowania do przesyłania komunikatów, stworzony przez firmę IBM. Powstał na bazie MQSeries, innego programu tejże firmy. 
+\item \textbf{Apache ActiveMQ} – open-sourcowy broker wiadomości napisany w Javie
+Oba są przedstawicielami Java Message Service.
+Kafka sprawdza się w testach wydajności produkcji dużo lepiej, niż ActiveMQ. W przeciwieństwie do ActiveMQ, nie posiada potwierdzeń odebrania wiadomości przez broker, dzięki czemu producent Kafki nie musi czekać na potwierdzenie dostarczenia wiadomości i  może produkować tyle wiadomości, ile jest w stanie przetworzyć broker, co skutkuje wyższą wydajnością. Drugim powodem jest mniejszy format wiadomości. Średnio, każda wiadomość przesyłana w Kafce ma wielkość 9 bajtów, w porównaniu do 144 bajtów ActiveMQ.
+Kafka sprawdza się również lepiej w testach wydajności konsumpcji. Jeden z powodów jest podobny jak w przypadku produkcji – mniejszy format wiadomości. Drugim jest stanowość wiadomości w ActiveMQ – system musi przetwarzać i przechowywać stan o wiadomościach przetworzonych, co znacznie zmniejsza jego wydajność.
+W przeciwieństwie do wydajności, dużym plusem ActiveMQ jest gwarancja poprawnego przepływu wiadomości w systemie – badanie stanu wiadomości i wysyłanie potwierdzeń zwiększa jego niezawodność.
+
+\end{itemize}
+\newpage
 \section{Konfiguracja}
 \begin{enumerate}
-\item Wykonaj kroki 1 oraz 2 z sekcji "Quick Start" według instrukcji na stronie \url{http://kafka.apache.org/documentation.html#quickstart}
+\item Wykonaj kroki z sekcji Apache Kafka -- Instrukcja instalacji
 \item Zainstaluj Pythona 2.7 \url{https://www.python.org/download/releases/2.7/}
 \item Zainstaluj menedżer pakietów Pythona -- pip \url{https://pip.pypa.io/en/stable/installing/}
 \item Będąc w katalogu z projektem, zainstaluj wymagane pakiety za pomocą polecenia \textit{pip install -r requirements.txt}
@@ -271,7 +355,7 @@ radiotechnice. W zakres częstotliwości radiowych wchodzą drgania o zakresie o
 BTS\\
 potrzebna współrzędnych z gpsu do określenia pozycji stacji bts\\
 po określeniu odległości, nakreślamy okrąg dookoła btsu na którym znajduje się komórka\\
-przy danych z 3 btsow lokalizacja telefonu będzie się znajdować na przecięciu okregów\\
+przy danych z 3 btsow lokalizacja telefonu będzie się znajdować na przecięciu okręgów\\
 \begin{center}
 \includegraphics[scale=0.75]{intersection.png}
 \end{center}
@@ -288,7 +372,13 @@ Główny interfejs wygląda następująco
 \begin{center}
 \includegraphics[scale=0.4]{ui1.png}
 \end{center}
-Po lewej znajduje się mapa z naniesionymi szlakami oraz pozycjami turystów. Żółte pinezki symbolizują punkty końcowe/początkowe szlaków. Zielone kropki to pozycje turystów. Po prawej stronie znajduje się informacja o aktualnym poziomie zagrożenia na poszczególnych szlakach. Jeśli poziom jest wysoki, pozycja zaznaczana jest na czerwono.
+Po lewej znajduje się mapa z naniesionymi szlakami oraz pozycjami turystów. Żółte pinezki symbolizują punkty końcowe/początkowe szlaków. Zielone kropki to pozycje turystów, a czerwone - niedźwiedzi. Niebieskie okręgi wskazują strefy zagrożenia. Po prawej stronie znajduje się informacja o aktualnym poziomie zagrożenia na poszczególnych szlakach. Jeśli poziom jest wysoki, pozycja zaznaczana jest na czerwono.
+\subsection{Zmiana języka}
+Na dole interfejsu znajduje się panel do zmiany języka
+\begin{center}
+\includegraphics[scale=1]{language.png}
+\end{center}
+Aby zmienić język należy wybrać go z listy oraz nacisnąć przycisk obok
 \subsection{Menu}
 Strzałka u góry rozwija menu
 \begin{center}
@@ -328,7 +418,7 @@ W tej zakładce można dodać, edytować oraz usunąć strefy zagrożenia. Aby d
 W tej zakładce można dodać, edytować oraz usunąć grupy turystów. Aby dodać nową, należy wybrać lidera oraz podać nazwę grupy. Turystów do grupy przyporządkowuje się z zakładki \textbf{Turyści}
 \newpage
 \section{Scenariusze testowe}
-Scenariusze włącza się za pomocą komendy \textbf{python scenario\_NAZWA.py}
+Scenariusze włącza się za pomocą komendy \textbf{python scenario\_NAZWA.py} . Wyłącza za pomocą kombinacji klawiszy Ctrl + C
 \begin{itemize}
 \item \textbf{scenario\_unconscious.py} -- Scenariusz tworzy turystę o numerze telefonu 1234567890 w pobliżu Babiej Góry, po minucie oczekiwania (normalnie 15 minut, w celu testów czas został skrócony) w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
 \item \textbf{scenario\_group.py} -- Scenariusz tworzy dwóch turystów o numerach telefonu 123456789 oraz 1234567891 w pobliżu Babiej Góry. Jeden turysta jest liderem grupy, drugi jest przyporządkowany do tej grupy. Drugi zaczyna się oddalać od lidera, po odejściu na dystans 200m w zakładce \textit{Turyści na szlakach} powinien pojawić się odpowiedni wpis.
