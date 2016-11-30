@@ -9,3 +9,7 @@ def home_view(request):
 @login_required
 def weather_view(request):
     return render(request, 'weather.html')
+
+@login_required
+def sat_view(request):
+    return render(request, 'sat.html', {'results': 'TEST'})

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from system_app.views import home_view, weather_view
+from system_app.views import home_view, weather_view, sat_view
 from tourist_app.views import tourists_view
 from system_app.api_views import api_get_routes, api_get_routes_info, api_get_weather_info
 from tourist_app.api_views import api_get_tourists, api_get_tourist_danger_info, api_get_bears
@@ -32,6 +32,7 @@ urlpatterns = i18n_patterns(
     url(r'^$', home_view, name='home_view'),
     url(r'^weather/$', weather_view, name='weather_view'),
     url(r'^tourists/$', tourists_view, name='tourists_view'),
+    url(r'^sat/$', sat_view, name='sat_view'),
     url(r'^api/get_routes_info/$', api_get_routes_info, name='api_get_routes_info'),
     url(r'^api/get_weather_info/$', api_get_weather_info, name='api_get_weather_info'),
     url(r'^api/get_tourist_danger_info/$', api_get_tourist_danger_info, name='api_get_tourist_danger_info'),
