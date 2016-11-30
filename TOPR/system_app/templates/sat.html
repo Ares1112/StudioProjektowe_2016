@@ -3,6 +3,28 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12" id="pogoda">
+                <h3>{% trans 'Stan szlaków' %}</h3>
+                <table class="table table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Nazwa szlaku' %}</th>
+                        <th>{% trans 'Kolor' %}</th>
+                        <th>{% trans 'Trudność' %}</th>
+                        <th>{% trans 'Sugerowane działanie' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for route in routes %}
+                    <tr>
+                        <td>{{ route.0.nazwa }}</td>
+                        <td>{{ route.0.get_kolor_display }}</td>
+                        <td>{{ route.0.trudnosc }}</td>
+                        <td>{{ route.1.success }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            
             {{ results }}
         </div>
     </div>
