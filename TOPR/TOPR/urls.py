@@ -20,6 +20,7 @@ from system_app.views import home_view, weather_view, sat_view
 from tourist_app.views import tourists_view
 from system_app.api_views import api_get_routes, api_get_routes_info, api_get_weather_info
 from tourist_app.api_views import api_get_tourists, api_get_tourist_danger_info, api_get_bears
+from system_app.apps import sat_viev
 from django.conf.urls.i18n import i18n_patterns
 
 from django.conf import settings

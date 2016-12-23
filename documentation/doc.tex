@@ -42,6 +42,9 @@ Po wykonaniu powyższych kroków, na maszynie powinna działać instacja serwera
 \begin{center}
 \includegraphics[scale=0.5]{kafka.png}
 \end{center}
+Nadajnik to tak naprawdę BTS wysyłający dane do Kafki w postaci klucz(numer telefonu/identyfikator)-wartość(pozycja GPS/sygnał wyjścia poza zasięg). Zakładamy, że na BTS'a można napisać oprogramowanie w dowolnym języku do takowej komunikacji. W celach testowych BTS'y są symulowane skryptami ze scenariuszami (każdy taki skrypt to nadajnik).
+
+Odbiorniki napisane są w języku Python, odbierają dane z Kafki i odpowiednio modyfikują bazę danych systemu (koordynaty turystów, niedźwiedzi oraz ich wyjście poza zasięg).
 \subsection{Wydajność}
 Metryki określające wydajność Kafki dzielą się na trzy kategorie:
 \begin{itemize}
@@ -101,6 +104,19 @@ Kafka sprawdza się również lepiej w testach wydajności konsumpcji. Jeden z p
 W przeciwieństwie do wydajności, dużym plusem ActiveMQ jest gwarancja poprawnego przepływu wiadomości w systemie – badanie stanu wiadomości i wysyłanie potwierdzeń zwiększa jego niezawodność.
 
 \end{itemize}
+\subsection{Dlaczego Apache Kafka?}
+Polskie Tatry odwiedza rocznie około 3 miliony turystów. Tworzony system musi więc wykazywać się dużą przepustowością. Apache Kafka, jak wykazały testy, jest dużo bardziej wydajny od np. IBM WebSphere albo RabbitMQ. Pozwala na przetwarzanie dużo większych wiadomości w znacząco krótszym czasie, jak również może obsłużyć zwiększoną ilość producentów wiadomości (stacje BTS informujące o położeniu turystów oraz innych monitorowanych elementów). 
+
+Zalety innych systemów, potwierdzenia przepływu wiadomości oraz monitorowanie stanu każdej z nich, w tworzonym systemie odgrywają mniejszą rolę. Utrata jednej wiadomości na temat położenia jednego turysty ma mniejsze znaczenie, ponieważ jesteśmy w stanie wyznaczyć w przybliżeniu jego utraconą pozycję na podstawie następnej odczytanej.
+
+\begin{center}
+\includegraphics[scale=1]{dk.png}
+\end{center}
+
+Metoda ta nie została zaimplementowana w systemie, ponieważ nie było potrzeby zapamiętywania położenia turystów. W systemie liczy się obecny stan turysty, a biorąc pod uwagę częste odtwarzanie lokalizacji obiektów, utrata jednej wiadomości nie ma negatywnego wpływu na działanie całego programu. Z tego też powodu, zaleta innych systemów nie miała żadnego wpływu pływu na wybór brokera.
+
+	Podsumowując, wybór Apache Kafka argumentujemy jego wysoką przepustowością i możliwością obsługi większej ilości producentów w stosunku do jego konkurencji. Jego wada, brak monitorowania stanu wiadomości, w wybranym systemie odgrywa drugorzędną rolę i nie zdecydowała o wyborze innego brokera wiadomości.
+
 \newpage
 \section{Konfiguracja}
 \begin{enumerate}
@@ -131,6 +147,7 @@ W przeciwieństwie do wydajności, dużym plusem ActiveMQ jest gwarancja poprawn
 \item Informacje o warunkach atmosferycznych pobierane są z czujników rozmieszczonych w różnych miejscach na szlakach Babiej Góry. Informacje o lokalizacji komórek turystów pobierane są BTS’ów
 \item Każdy z powyższych czynników posiada osobną skalę. Końcowy poziom stanu alarmowego dla każdego szlaku oblicza się ze wzoru: (suma skal dla warunków atmosferycznych + zagrożenie lawinowe + poziom trudności szlaku)/4.
 \item W zależności od uzyskanego wyniku system sugeruje określone akcje ratowników
+\item Określanie zagrożeń turystów jest osobnym elementem systemu, skala zagrożenia ma zasięg szlaku (przykładowo na szlaku jest stopień zagrożenia 5 -- ewakuujemy turystów z całego szlaku), a zagrożenie turysty ma zasięg jednostki (przykładowo turysta wszedł w strefę zamkniętą -- dzwonimy do turysty żeby z niej wyszedł).
 \end{enumerate}
 \newpage
 \section{Szlaki babiej góry}
